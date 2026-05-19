@@ -1,8 +1,7 @@
 "use client";
-
-// import { authClient } from "@/lib/auth-client";
+import { FcGoogle } from "react-icons/fc";
 import { Card, Separator } from "@heroui/react";
-import { redirect } from "next/navigation";
+
 import {
   Button,
   Description,
@@ -12,33 +11,45 @@ import {
   Label,
   TextField,
 } from "@heroui/react";
-import { FcGoogle } from "react-icons/fc";
+// import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
 
-const LoginPage = () => {
+const SignUpPage = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const user = Object.fromEntries(formData.entries());
 
-    // const { data, error } = await authClient.signIn.email({
+    // const formData = new FormData(e.currentTarget);
+    // const user = Object.fromEntries(formData.entries());
+
+    // const { data, error } = await authClient.signUp.email({
     //   email: user.email,
     //   password: user.password,
+    //   name: user.name,
+    //   image: user.image,
     // });
-
-    if (data) {
-      redirect("/");
-    }
-    console.log("login data", data);
+    // console.log(data);
   };
+
   return (
     <div className="max-w-7xl mx-auto">
       <div className="text-center my-3">
-        <h1 className="text-2xl font-bold">Login</h1>
+        <h1 className="text-2xl font-bold">Create Account</h1>
         <p>Start your study with Study Nook</p>
       </div>
       <Card className="border rounded-none">
         <Form onSubmit={onSubmit} className="flex w-96 flex-col gap-4">
+          <TextField isRequired name="name" type="text">
+            <Label>Name</Label>
+            <Input placeholder="Enter your name" />
+            <FieldError />
+          </TextField>
+
+          <TextField name="image" type="url">
+            <Label>Image URL</Label>
+            <Input placeholder="Image url" />
+            <FieldError />
+          </TextField>
+
           <TextField
             isRequired
             name="email"
@@ -80,15 +91,11 @@ const LoginPage = () => {
             <FieldError />
           </TextField>
           <div className="flex justify-center gap-2">
-            <Button
-              className={"rounded-none w-full bg-blue-600/80"}
-              type="submit"
-            >
-              Login
+            <Button className={"rounded-none w-full bg-cyan-500"} type="submit">
+              Create Account
             </Button>
           </div>
         </Form>
-
         <div className="flex justify-center items-center gap-3">
           <Separator />
           <div className="whitespace-nowrap"> Or sign up with </div>
@@ -103,12 +110,11 @@ const LoginPage = () => {
             <FcGoogle /> Sign in with Google
           </Button>
         </div>
-        <div className=" flex justify-center items-center">
+        <div className=" flex justify-center items-center ">
           <p className=" text-xs ">
-            Don&apos;t have an account?{" "}
-            <Link href={"/signin"} className="text-blue-600">
-              {" "}
-              Register
+            Already have an account?{" "}
+            <Link href={"/login"} className="text-blue-600">
+              Login
             </Link>
           </p>
         </div>
@@ -117,4 +123,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default SignUpPage;
