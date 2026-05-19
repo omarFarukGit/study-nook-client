@@ -16,6 +16,10 @@ const Navbar = () => {
   const { data: session } = authClient.useSession();
   const user = session?.user;
 
+  const handleSignOut = async () => {
+    await authClient.signOut();
+  };
+
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll);
@@ -50,29 +54,33 @@ const Navbar = () => {
               Home
             </Link>
             <Link
-              href="/courses"
+              href="/all-room"
               className="font-medium text-slate-700 hover:text-blue-600 transition-colors"
             >
               Rooms
             </Link>
-            <Link
-              href="/add-course"
-              className="font-medium text-slate-700 hover:text-blue-600 transition-colors"
-            >
-              Add Room
-            </Link>
-            <Link
-              href="/dashboard"
-              className="font-medium text-slate-700 hover:text-blue-600 transition-colors"
-            >
-              My Listings
-            </Link>
-            <Link
-              href="/dashboard"
-              className="font-medium text-slate-700 hover:text-blue-600 transition-colors"
-            >
-              My Bookings
-            </Link>
+            {user && (
+              <>
+                <Link
+                  href="/add-room"
+                  className="font-medium text-slate-700 hover:text-blue-600 transition-colors"
+                >
+                  Add Room
+                </Link>
+                <Link
+                  href="/my-list"
+                  className="font-medium text-slate-700 hover:text-blue-600 transition-colors"
+                >
+                  My Listings
+                </Link>
+                <Link
+                  href="/my-booking"
+                  className="font-medium text-slate-700 hover:text-blue-600 transition-colors"
+                >
+                  My Bookings
+                </Link>
+              </>
+            )}
           </div>
 
           <div className="hidden md:flex items-center gap-4">
@@ -135,7 +143,10 @@ const Navbar = () => {
                   >
                     <User className="w-4 h-4" /> my Lists
                   </Link>
-                  <button className="px-4 py-2 text-sm text-red-500 hover:bg-red-50 flex items-center gap-3 transition-colors text-left">
+                  <button
+                    onClick={handleSignOut}
+                    className="px-4 py-2 text-sm text-red-500 hover:bg-red-50 flex items-center gap-3 transition-colors text-left"
+                  >
                     <LogOut className="w-4 h-4" /> Log Out
                   </button>
                 </div>

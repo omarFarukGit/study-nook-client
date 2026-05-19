@@ -3,12 +3,12 @@ import Image from "next/image";
 
 const Banner = () => {
   return (
-    <section className="bg-gray-900 mb-12">
+    <section className="bg-gray-900 ">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 md:grid md:grid-cols-2 md:items-center md:gap-8 lg:px-8 lg:py-28">
         {/* Text Section */}
         <div className="max-w-prose text-center md:text-left mx-auto md:mx-0">
           <h1 className="text-3xl font-bold text-white sm:text-4xl md:text-5xl leading-tight">
-            Your Easy Library,
+            Your Easy Study Nook,
             <span className="block text-indigo-500">Simplified</span>
           </h1>
 
