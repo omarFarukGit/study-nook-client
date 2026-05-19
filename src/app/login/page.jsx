@@ -1,6 +1,6 @@
 "use client";
 
-// import { authClient } from "@/lib/auth-client";
+
 import { Card, Separator } from "@heroui/react";
 import { redirect } from "next/navigation";
 import {
@@ -14,6 +14,7 @@ import {
 } from "@heroui/react";
 import { FcGoogle } from "react-icons/fc";
 import Link from "next/link";
+import { authClient } from "@/lib/auth-client";
 
 const LoginPage = () => {
   const onSubmit = async (e) => {
@@ -21,10 +22,10 @@ const LoginPage = () => {
     const formData = new FormData(e.currentTarget);
     const user = Object.fromEntries(formData.entries());
 
-    // const { data, error } = await authClient.signIn.email({
-    //   email: user.email,
-    //   password: user.password,
-    // });
+    const { data, error } = await authClient.signIn.email({
+      email: user.email,
+      password: user.password,
+    });
 
     if (data) {
       redirect("/");

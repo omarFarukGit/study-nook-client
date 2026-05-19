@@ -1,6 +1,7 @@
 "use client";
 import { FcGoogle } from "react-icons/fc";
 import { Card, Separator } from "@heroui/react";
+import { redirect } from "next/navigation";
 
 import {
   Button,
@@ -11,23 +12,32 @@ import {
   Label,
   TextField,
 } from "@heroui/react";
-// import { authClient } from "@/lib/auth-client";
+
 import Link from "next/link";
+import { authClient } from "@/lib/auth-client";
+import { toast } from "react-toastify";
 
 const SignUpPage = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    // const formData = new FormData(e.currentTarget);
-    // const user = Object.fromEntries(formData.entries());
+    const formData = new FormData(e.currentTarget);
+    const user = Object.fromEntries(formData.entries());
 
-    // const { data, error } = await authClient.signUp.email({
-    //   email: user.email,
-    //   password: user.password,
-    //   name: user.name,
-    //   image: user.image,
-    // });
-    // console.log(data);
+    const { data, error } = await authClient.signUp.email({
+      email: user.email,
+      password: user.password,
+      name: user.name,
+      image: user.image,
+    });
+    console.log(data);
+    if (data) {
+      toast.success("user created successfully");
+      redirect("/login");
+    }
+    if (error) {
+      toast.error(error.message);
+    }
   };
 
   return (
@@ -43,8 +53,6 @@ const SignUpPage = () => {
             <Input placeholder="Enter your name" />
             <FieldError />
           </TextField>
-
-        
 
           <TextField name="image" type="url">
             <Label>Image URL</Label>
