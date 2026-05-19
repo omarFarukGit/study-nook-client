@@ -1,6 +1,5 @@
 "use client";
 
-
 import { Card, Separator } from "@heroui/react";
 import { redirect } from "next/navigation";
 import {
@@ -26,11 +25,10 @@ const LoginPage = () => {
       email: user.email,
       password: user.password,
     });
-
+    console.log("login data", data);
     if (data) {
       redirect("/");
     }
-    console.log("login data", data);
   };
   return (
     <div className="max-w-7xl mx-auto">
