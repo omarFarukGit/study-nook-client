@@ -14,6 +14,7 @@ import {
 import { FcGoogle } from "react-icons/fc";
 import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
+import { toast } from "react-toastify";
 
 const LoginPage = () => {
   const onSubmit = async (e) => {
@@ -28,6 +29,9 @@ const LoginPage = () => {
     console.log("login data", data);
     if (data) {
       redirect("/");
+    }
+    if (error) {
+      toast.error(error.message);
     }
   };
   return (
