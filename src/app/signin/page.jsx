@@ -44,6 +44,8 @@ const SignUpPage = () => {
             <FieldError />
           </TextField>
 
+        
+
           <TextField name="image" type="url">
             <Label>Image URL</Label>
             <Input placeholder="Image url" />
