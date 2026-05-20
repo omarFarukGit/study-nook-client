@@ -1,4 +1,5 @@
 import { BookingModal } from "@/components/heroUI/BookingModal";
+import { DeleteModal } from "@/components/heroUI/DeleteRoomModal";
 import { UpdateModel } from "@/components/heroUI/UpdateModel";
 import { auth } from "@/lib/auth";
 import { authClient } from "@/lib/auth-client";
@@ -6,6 +7,7 @@ import { Button, Chip } from "@heroui/react";
 import {
   Building2,
   ClipboardList,
+  DeleteIcon,
   Link,
   ListOrdered,
   User,
@@ -19,7 +21,9 @@ import { FiExternalLink } from "react-icons/fi";
 const RoomDetails = async ({ params }) => {
   const { id } = await params;
   console.log("details", id);
-  const res = await fetch(`http://localhost:3001/api/study-nook/${id}`);
+  const res = await fetch(`http://localhost:3001/api/study-nook/${id}`, {
+    cache: "no-store",
+  });
   const result = await res.json();
   const room = result.data;
   // console.log(room);
@@ -113,9 +117,7 @@ const RoomDetails = async ({ params }) => {
           <BookingModal />
           {expectedUser === userId ? (
             <div className=" flex gap-2">
-              <Button variant="danger">
-                <FiExternalLink /> delete
-              </Button>
+              <DeleteModal id={_id} userId={userId} />
               <UpdateModel />
             </div>
           ) : null}
