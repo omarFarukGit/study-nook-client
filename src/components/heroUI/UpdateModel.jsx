@@ -1,24 +1,79 @@
 "use client";
 
+import { useState } from "react";
+
 import {
-  Badge,
-  Button,
   FieldError,
   Input,
   Label,
+  TextField,
+  TextArea,
+  Button,
+  Card,
+  Checkbox,
   Modal,
   Surface,
-  TextArea,
-  TextField,
 } from "@heroui/react";
 import { FiExternalLink } from "react-icons/fi";
-import { BookingSelect } from "./BookingSelect";
 import { RadioSection } from "./RadioButton";
+import { redirect } from "next/navigation";
+import { toast } from "react-toastify";
 
-export function UpdateModel() {
+const amenitiesList = [
+  "Whiteboard",
+  "Projector",
+  "Wi-Fi",
+  "Air Conditioning",
+  "Quiet Zone",
+  "Power Outlets",
+];
+
+const UpdateModel = ({ room, userId }) => {
+  const [amenities, setAmenities] = useState([]);
+
+  const handleAmenities = (value, checked) => {
+    if (checked) {
+      setAmenities((prev) => [...prev, value]);
+    } else {
+      setAmenities((prev) => prev.filter((item) => item !== value));
+    }
+  };
+  console.log(amenities);
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.currentTarget);
+
+    const updateroom = Object.fromEntries(formData.entries());
+
+    const roomData = { updateroom };
+
+    console.log(roomData);
+    console.log(room, userId, "update");
+    const res = await fetch(
+      `http://localhost:3001/api/study-nook/user-room/${userId}/room/${room._id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(updateroom),
+      },
+    );
+
+    const data = await res.json();
+
+    if (data.success) {
+      toast.success("Room updated sucessfully");
+      redirect(`/all-room/${room._id}`);
+    }
+    console.log(data);
+  };
+
   return (
     <Modal className="w-full">
-      <Button variant='ghost'>
+      <Button variant="ghost">
         <FiExternalLink /> Edit
       </Button>
       <Modal.Backdrop>
@@ -33,93 +88,133 @@ export function UpdateModel() {
             </Modal.Header>
             <Modal.Body className="p-6">
               <Surface variant="default">
-                <form onSubmit={""} className=" space-y-8 ">
+                <form onSubmit={onSubmit} className=" space-y-8 ">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    {/* Destination Name */}
                     <div className="md:col-span-2">
-                      <TextField name="roomName" isRequired>
+                      <TextField
+                        name="roomName"
+                        isRequired
+                        defaultValue={room.roomName}
+                      >
                         <Label>Room Name</Label>
-                        <Input placeholder="" className="rounded-2xl" />
-                        <FieldError />
-                      </TextField>
-                    </div>
-                    {/* Description */}
-                    <div className="md:col-span-2">
-                      <TextField name="description" isRequired>
-                        <Label>Description</Label>
-                        <TextArea
-                          placeholder="Describe the travel experience..."
-                          className="rounded-3xl"
-                        />
-                        <FieldError />
-                      </TextField>
-                    </div>
-                    {/* Image URL - Removed preview */}
-                    <div className="md:col-span-2">
-                      <TextField name="imageUrl" isRequired>
-                        <Label>Image URL</Label>
-                        <Input
-                          type="url"
-                          placeholder="https://example.com/bali-paradise.jpg"
-                          className="rounded-2xl"
-                        />
+                        <Input className="rounded-2xl" />
                         <FieldError />
                       </TextField>
                     </div>
 
-                    {/* Price */}
-                    <TextField name="price" type="number" isRequired>
-                      <Label>Floor </Label>
-                      <Input
-                        type="number"
-                        placeholder="1299"
-                        className="rounded-2xl"
-                      />
+                    <div className="md:col-span-2">
+                      <TextField
+                        name="description"
+                        isRequired
+                        defaultValue={room.description}
+                      >
+                        <Label>Description</Label>
+
+                        <TextArea className="rounded-3xl" />
+
+                        <FieldError />
+                      </TextField>
+                    </div>
+
+                    <div className="md:col-span-2">
+                      <TextField
+                        name="image"
+                        isRequired
+                        defaultValue={room.image}
+                      >
+                        <Label>Image URL</Label>
+
+                        <Input type="url" className="rounded-2xl" />
+
+                        <FieldError />
+                      </TextField>
+                    </div>
+
+                    <TextField
+                      name="floor"
+                      type="number"
+                      isRequired
+                      defaultValue={room.floor}
+                    >
+                      <Label>Floor</Label>
+
+                      <Input type="number" className="rounded-2xl" />
+
                       <FieldError />
                     </TextField>
-                    <TextField name="price" type="number" isRequired>
-                      <Label>Cpacity </Label>
-                      <Input
-                        type="number"
-                        placeholder="e.g floor 3rd"
-                        className="rounded-2xl"
-                      />
+
+                    <TextField
+                      name="capacity"
+                      type="number"
+                      isRequired
+                      defaultValue={room.capacity}
+                    >
+                      <Label>Capacity</Label>
+
+                      <Input type="number" className="rounded-2xl" />
+
                       <FieldError />
                     </TextField>
-                    <TextField name="price" type="number" isRequired>
-                      <Label>Hourly Rate </Label>
-                      <Input
-                        type="number"
-                        placeholder="1299"
-                        className="rounded-2xl"
-                      />
+
+                    <TextField
+                      name="hourlyRate"
+                      type="number"
+                      isRequired
+                      defaultValue={room.hourlyRate}
+                    >
+                      <Label>Hourly Rate</Label>
+
+                      <Input type="number" className="rounded-2xl" />
+
                       <FieldError />
                     </TextField>
                   </div>
-                  <div>
-                    <RadioSection />
+
+                  {/* Amenities */}
+
+                  <div className="flex flex-col gap-4">
+                    <Label>Amenities</Label>
+
+                    <div className="grid grid-cols-3 gap-2">
+                      {amenitiesList.map((item) => (
+                        <Checkbox
+                          key={item}
+                          onChange={(checked) => handleAmenities(item, checked)}
+                          defaultSelected={room.amenities?.includes(item)}
+                        >
+                          <Checkbox.Control>
+                            <Checkbox.Indicator />
+                          </Checkbox.Control>
+
+                          <Checkbox.Content>
+                            <Label>{item}</Label>
+                          </Checkbox.Content>
+                        </Checkbox>
+                      ))}
+                    </div>
                   </div>
-                  {/* Buttons */}
 
                   <Button
+                    slot={"close"}
                     type="submit"
-                    variant="outline"
-                    className=" rounded-none w-full bg-cyan-500 text-white"
+                    className="rounded-none w-full bg-cyan-500 text-white"
                   >
                     Update Room
                   </Button>
                 </form>
               </Surface>
             </Modal.Body>
-            <Modal.Footer>
+            {/* <Modal.Footer>
               <Button slot="close" variant="secondary">
                 Cancel
               </Button>
               <Button slot="close">Book Now</Button>
-            </Modal.Footer>
+            </Modal.Footer> */}
           </Modal.Dialog>
         </Modal.Container>
       </Modal.Backdrop>
     </Modal>
   );
-}
+};
+
+export default UpdateModel;

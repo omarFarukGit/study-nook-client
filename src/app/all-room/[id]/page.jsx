@@ -1,6 +1,6 @@
 import { BookingModal } from "@/components/heroUI/BookingModal";
 import { DeleteModal } from "@/components/heroUI/DeleteRoomModal";
-import { UpdateModel } from "@/components/heroUI/UpdateModel";
+import UpdateModel from "@/components/heroUI/UpdateModel";
 import { auth } from "@/lib/auth";
 import { authClient } from "@/lib/auth-client";
 import { Button, Chip } from "@heroui/react";
@@ -118,7 +118,7 @@ const RoomDetails = async ({ params }) => {
           {expectedUser === userId ? (
             <div className=" flex gap-2">
               <DeleteModal id={_id} userId={userId} />
-              <UpdateModel />
+              <UpdateModel userId={userId} room={room} />
             </div>
           ) : null}
         </div>
