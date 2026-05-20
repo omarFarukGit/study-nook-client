@@ -68,7 +68,7 @@ const Navbar = () => {
                   Add Room
                 </Link>
                 <Link
-                  href="/my-list"
+                  href="/my-listing"
                   className="font-medium text-slate-700 hover:text-blue-600 transition-colors"
                 >
                   My Listings
@@ -132,7 +132,7 @@ const Navbar = () => {
                     </p>
                   </div>
                   <Link
-                    href="/dashboard"
+                    href="/my-listing"
                     className="px-4 py-2 text-sm hover:bg-muted flex items-center gap-3 transition-colors text-black hover:text-white"
                   >
                     <LayoutDashboard className="w-4 h-4" /> Dashboard
