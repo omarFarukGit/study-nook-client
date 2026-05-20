@@ -44,6 +44,7 @@ export function BookingModal({ room }) {
       cost: totalCost,
     };
 
+    
     console.log(BookData);
 
     const res = await fetch(

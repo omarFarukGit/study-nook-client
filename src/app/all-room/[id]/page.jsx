@@ -102,7 +102,7 @@ const RoomDetails = async ({ params }) => {
               <p>hr</p>
             </div>
             <p className="flex  items-center gap-1">
-              <Building2 /> <span>floor</span>
+              <Building2 /> <span> {floor}</span>
             </p>
             <p className="flex  items-center gap-1">
               <UsersRound />
@@ -128,7 +128,7 @@ const RoomDetails = async ({ params }) => {
             <p>
               <User />
             </p>
-            <p>email</p>
+            <p>{ownerEmail}</p>
           </div>
         </div>
       </div>
