@@ -1,14 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import {
-  Button,
-  Input,
-  Label,
-  Modal,
-  Surface,
-  TextField,
-} from "@heroui/react";
+import { Button, Input, Label, Modal, Surface, TextField } from "@heroui/react";
 import { FiExternalLink } from "react-icons/fi";
 import { BookingSelect } from "./BookingSelect";
 import { authClient } from "@/lib/auth-client";
@@ -57,7 +50,7 @@ export function BookingModal({ room }) {
           "content-type": "application/json",
         },
         body: JSON.stringify(BookData),
-      }
+      },
     );
 
     const data = await res.json();
@@ -82,7 +75,6 @@ export function BookingModal({ room }) {
             <Modal.Body className="p-6">
               <Surface>
                 <form onSubmit={onSubmit} className="flex flex-col gap-4">
-
                   {/* DATE */}
                   <TextField name="date" type="date">
                     <Label>Date</Label>
@@ -91,14 +83,11 @@ export function BookingModal({ room }) {
 
                   {/* START + END */}
                   <div className="grid grid-cols-2 gap-4">
-
                     <div>
                       <Label>Start Time</Label>
                       <select
                         value={startTime}
-                        onChange={(e) =>
-                          setStartTime(Number(e.target.value))
-                        }
+                        onChange={(e) => setStartTime(Number(e.target.value))}
                         className="w-full border p-2 rounded-md"
                       >
                         <option value="8">8 AM</option>
@@ -113,9 +102,7 @@ export function BookingModal({ room }) {
                       <Label>End Time</Label>
                       <select
                         value={endTime}
-                        onChange={(e) =>
-                          setEndTime(Number(e.target.value))
-                        }
+                        onChange={(e) => setEndTime(Number(e.target.value))}
                         className="w-full border p-2 rounded-md"
                       >
                         <option value="9">9 AM</option>
@@ -125,7 +112,6 @@ export function BookingModal({ room }) {
                         <option value="13">1 PM</option>
                       </select>
                     </div>
-
                   </div>
 
                   {/* MESSAGE */}
@@ -140,7 +126,9 @@ export function BookingModal({ room }) {
                     <p>${totalCost}</p>
                   </div>
 
-                  <Button type="submit">Book Now</Button>
+                  <Button slot={"close"} type="submit">
+                    Book Now
+                  </Button>
                 </form>
               </Surface>
             </Modal.Body>
