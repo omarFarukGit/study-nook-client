@@ -5,6 +5,8 @@ import { Button, Input, Label, Modal, Surface, TextField } from "@heroui/react";
 import { FiExternalLink } from "react-icons/fi";
 import { BookingSelect } from "./BookingSelect";
 import { authClient } from "@/lib/auth-client";
+import { toast } from "react-toastify";
+import { redirect } from "next/navigation";
 
 export function BookingModal({ room }) {
   const { data: session } = authClient.useSession();
@@ -34,6 +36,8 @@ export function BookingModal({ room }) {
       // ✅ body + state mix
       startTime: Number(startTime),
       endTime: Number(endTime),
+      image: room.image,
+      roomName: room.roomName,
 
       hourlyRate,
       totalHours,
@@ -55,6 +59,10 @@ export function BookingModal({ room }) {
 
     const data = await res.json();
     console.log(data);
+    if (data.success) {
+      toast.success("Booking sucesssfully");
+      redirect("/my-booking");
+    }
   };
 
   return (

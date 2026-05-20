@@ -7,8 +7,9 @@ const MyBooking = async () => {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
+  const userId = session?.user?.id;
   const res = await fetch(
-    `http://localhost:3001/api/study-nook/bookings/u006`,
+    `http://localhost:3001/api/study-nook/bookings/${userId}`,
     { cache: "no-cache" },
   );
   const result = await res.json();
