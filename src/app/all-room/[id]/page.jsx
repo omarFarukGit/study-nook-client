@@ -21,9 +21,12 @@ import { FiExternalLink } from "react-icons/fi";
 const RoomDetails = async ({ params }) => {
   const { id } = await params;
   console.log("details", id);
-  const res = await fetch(`http://localhost:3001/api/study-nook/${id}`, {
-    cache: "no-store",
-  });
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/study-nook/${id}`,
+    {
+      cache: "no-store",
+    },
+  );
   const result = await res.json();
   const room = result.data;
   // console.log(room);

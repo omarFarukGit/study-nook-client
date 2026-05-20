@@ -13,7 +13,7 @@ export function DeleteModal({ id, userId }) {
   console.log(userId, id);
   const handleDelete = async () => {
     const res = await fetch(
-      `http://localhost:3001/api/study-nook/user-room/${userId}/room/${id}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/api/study-nook/user-room/${userId}/room/${id}`,
       {
         method: "DELETE",
       },

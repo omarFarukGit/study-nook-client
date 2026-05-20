@@ -1,14 +1,17 @@
 "use client";
 import { Button, Chip } from "@heroui/react";
-import Image from "next/image";
-import { useState } from "react";
 
-const BookingCard = ({ booking }) => {
+import Image from "next/image";
+import { redirect } from "next/navigation";
+import { useState } from "react";
+import { toast } from "react-toastify";
+
+const BookingCard = ({ booking, userId }) => {
   const [localStatus, setLocalStatus] = useState(booking.status);
 
   const handleCancel = async () => {
     const res = await fetch(
-      `http://localhost:3001/api/study-nook/booking/room/u005/booking/6a0b00a8ead89afb40c67b34`,
+      `${process.env.NEXT_PUBLIC_API_URL}/api/study-nook/booking/room/${userId}/booking/${booking._id}`,
       {
         next: { revalidate: 0 },
         method: "PATCH",
@@ -21,6 +24,8 @@ const BookingCard = ({ booking }) => {
 
     if (data.success) {
       setLocalStatus("cancelled");
+      toast.success("your booking cancelled");
+      redirect("/my-booking");
     }
   };
 

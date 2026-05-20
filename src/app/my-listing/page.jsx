@@ -9,7 +9,7 @@ const MyListing = async () => {
   });
   const userId = session?.user?.id;
   const res = await fetch(
-    `http://localhost:3001/api/study-nook/user-room/${userId}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/api/study-nook/user-room/${userId}`,
   );
   const result = await res.json();
   const allroom = result.data;

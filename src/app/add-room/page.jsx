@@ -12,6 +12,8 @@ import {
   Card,
   Checkbox,
 } from "@heroui/react";
+import { toast } from "react-toastify";
+import { redirect } from "next/navigation";
 
 const amenitiesList = [
   "Whiteboard",
@@ -38,7 +40,8 @@ const AddRoomPage = () => {
       setAmenities((prev) => prev.filter((item) => item !== value));
     }
   };
-  console.log(amenities);
+  // console.log(amenities);
+  // console.log(process.env.NEXT_PUBLIC_API_URL);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -57,16 +60,22 @@ const AddRoomPage = () => {
 
     console.log(roomData);
 
-    const res = await fetch(`http://localhost:3001/api/study-nook`, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/study-nook`,
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(roomData),
       },
-      body: JSON.stringify(roomData),
-    });
+    );
 
     const data = await res.json();
-
+    if (data.success) {
+      toast.success("room added sucessfully");
+      redirect("/my-listing");
+    }
     console.log(data);
   };
 

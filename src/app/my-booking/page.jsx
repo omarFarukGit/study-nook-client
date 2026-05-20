@@ -9,7 +9,7 @@ const MyBooking = async () => {
   });
   const userId = session?.user?.id;
   const res = await fetch(
-    `http://localhost:3001/api/study-nook/bookings/${userId}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/api/study-nook/bookings/${userId}`,
     { cache: "no-cache" },
   );
   const result = await res.json();
@@ -19,7 +19,7 @@ const MyBooking = async () => {
       <h1 className=" text-2xl mb-2">My Bookings</h1>
       <div className=" flex flex-col gap-4">
         {bookings.map((booking) => (
-          <BookingCard key={booking._id} booking={booking} />
+          <BookingCard key={booking._id} booking={booking} userId={userId} />
         ))}
       </div>
     </div>

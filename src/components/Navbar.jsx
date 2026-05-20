@@ -140,7 +140,7 @@ const Navbar = () => {
                     <LayoutDashboard className="w-4 h-4" /> Dashboard
                   </Link>
                   <Link
-                    href="/settings"
+                    href="/my-booking"
                     className="px-4 py-2 text-sm hover:bg-muted flex items-center gap-3 transition-colors text-black hover:text-white"
                   >
                     <User className="w-4 h-4" /> my Lists
@@ -181,45 +181,61 @@ const Navbar = () => {
             Home
           </Link>
           <Link
-            href="/courses"
+            href="/all-room"
             className="block px-4 py-3 text-base font-medium text-slate-900 hover:bg-slate-50 rounded-xl"
           >
-            Courses
+            All-Room
           </Link>
           <Link
-            href="/add-course"
+            href="/add-room"
             className="block px-4 py-3 text-base font-medium text-slate-900 hover:bg-slate-50 rounded-xl"
           >
-            Add Course
+            Add-Room
           </Link>
           <Link
-            href="/dashboard"
+            href="/my-listing"
             className="block px-4 py-3 text-base font-medium text-slate-900 hover:bg-slate-50 rounded-xl"
           >
-            Dashboard
+            My lisitng
+          </Link>
+          <Link
+            href="/my-booking"
+            className="block px-4 py-3 text-base font-medium text-slate-900 hover:bg-slate-50 rounded-xl"
+          >
+            My Booking
           </Link>
           <div className="pt-4 border-t border-border mt-4">
-            <div className="grid grid-cols-2 gap-4">
-              <Link href="/login">
-                <Button href="/login" variant="bordered" className="rounded-xl">
-                  Login
-                </Button>
-              </Link>
-              <Link href="/register">
-                <Button href="/register" color="primary" className="rounded-xl">
-                  Join Free
-                </Button>
-              </Link>
-            </div>
-
-            <div className="flex flex-col gap-2">
-              <p className="px-4 text-xs font-bold text-muted-foreground uppercase tracking-wider">
-                Account
-              </p>
-              <button className="block w-full text-left px-4 py-3 text-base font-medium text-red-500 hover:bg-red-50 rounded-xl">
-                Log Out
-              </button>
-            </div>
+            {user ? (
+              <div className="flex flex-col gap-2">
+                <p className="px-4 text-xs font-bold text-muted-foreground uppercase tracking-wider">
+                  Account
+                </p>
+                <button className="block w-full text-left px-4 py-3 text-base font-medium text-red-500 hover:bg-red-50 rounded-xl">
+                  Log Out
+                </button>
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 gap-4">
+                <Link href="/login">
+                  <Button
+                    href="/login"
+                    variant="bordered"
+                    className="rounded-xl"
+                  >
+                    Login
+                  </Button>
+                </Link>
+                <Link href="/register">
+                  <Button
+                    href="/register"
+                    color="primary"
+                    className="rounded-xl"
+                  >
+                    Join Now
+                  </Button>
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       )}

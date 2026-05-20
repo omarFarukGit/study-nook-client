@@ -47,7 +47,7 @@ export function BookingModal({ room }) {
     console.log(BookData);
 
     const res = await fetch(
-      `http://localhost:3001/api/study-nook/booking/room`,
+      `${process.env.NEXT_PUBLIC_API_URL}/api/study-nook/booking/room`,
       {
         method: "POST",
         headers: {

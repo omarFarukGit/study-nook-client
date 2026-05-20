@@ -52,7 +52,7 @@ const UpdateModel = ({ room, userId }) => {
     console.log(roomData);
     console.log(room, userId, "update");
     const res = await fetch(
-      `http://localhost:3001/api/study-nook/user-room/${userId}/room/${room._id}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/api/study-nook/user-room/${userId}/room/${room._id}`,
       {
         method: "PATCH",
         headers: {
