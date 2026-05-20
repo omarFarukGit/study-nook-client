@@ -1,4 +1,5 @@
 import { BookingModal } from "@/components/heroUI/BookingModal";
+import { UpdateModel } from "@/components/heroUI/UpdateModel";
 import { Button, Chip } from "@heroui/react";
 import {
   Building2,
@@ -85,8 +86,14 @@ const RoomDetails = () => {
               <span> booking</span>
             </p>
           </div>
-        
+
           <BookingModal />
+          <div className=" flex gap-2">
+            <Button variant="danger">
+              <FiExternalLink /> delete
+            </Button>
+            <UpdateModel />
+          </div>
         </div>
         <div className="bg-white border shadow-2xl space-y-2.5 p-4">
           <h2 className=" text-base">Listed By</h2>

@@ -15,7 +15,7 @@ import { BookingSelect } from "./BookingSelect";
 export function BookingModal() {
   return (
     <Modal>
-      <Button variant="primary">
+      <Button className={"w-full text-center"} variant="primary">
         <FiExternalLink /> book now
       </Button>
       <Modal.Backdrop>
