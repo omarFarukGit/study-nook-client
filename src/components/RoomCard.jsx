@@ -34,7 +34,7 @@ const RoomCard = ({ room }) => {
       <div className="p-2 space-y-3">
         <div className="flex items-center justify-between gap-1">
           <p className=" text-2xl font-bold">{roomName}</p>
-          <p>{hourlyRate}</p>
+          <Chip color="accent">${hourlyRate}/hr</Chip>
         </div>
         <div className="flex justify-between">
           <div>
@@ -47,11 +47,11 @@ const RoomCard = ({ room }) => {
           </p>
           <p className="flex justify-center items-center gap-1">
             <UsersRound />
-            <span>{capacity}</span>
+            <span>{capacity} People</span>
           </p>
           <p className="flex justify-center items-center gap-1">
             <ListOrdered />
-            <span> booking</span>
+            <span>{bookingCount} booking</span>
           </p>
         </div>
         <p>Amenities</p>

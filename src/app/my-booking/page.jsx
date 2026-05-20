@@ -1,4 +1,5 @@
 import BookingCard from "@/components/BookingCard";
+import OrderNotFound from "@/components/NotOrder";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import React from "react";
@@ -14,6 +15,10 @@ const MyBooking = async () => {
   );
   const result = await res.json();
   const bookings = result.data;
+
+  if (bookings.length === 0) {
+    return <OrderNotFound />;
+  }
   return (
     <div className="max-w-7xl py-4 mx-auto w-full">
       <h1 className=" text-2xl mb-2">My Bookings</h1>

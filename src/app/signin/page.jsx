@@ -16,6 +16,7 @@ import {
 import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "react-toastify";
+import { FaGithub } from "react-icons/fa";
 
 const SignUpPage = () => {
   const onSubmit = async (e) => {
@@ -33,11 +34,17 @@ const SignUpPage = () => {
     console.log(data);
     if (data) {
       toast.success("user created successfully");
-      redirect("/login");
+      redirect("/");
     }
     if (error) {
       toast.error(error.message);
     }
+  };
+
+  const signIn = async () => {
+    const data = await authClient.signIn.social({
+      provider: "github",
+    });
   };
 
   return (
@@ -113,11 +120,12 @@ const SignUpPage = () => {
         </div>
         <div>
           <Button
-            onClick={""}
+            onClick={signIn}
             variant="outline"
             className={"w-full rounded-none"}
           >
-            <FcGoogle /> Sign in with Google
+            <FaGithub />
+            Sign in with GitHub
           </Button>
         </div>
         <div className=" flex justify-center items-center ">

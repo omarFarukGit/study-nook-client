@@ -1,3 +1,4 @@
+import NotListing from "@/components/NotListing";
 import RoomCard from "@/components/RoomCard";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
@@ -14,6 +15,9 @@ const MyListing = async () => {
   const result = await res.json();
   const allroom = result.data;
 
+  if (allroom.length === 0) {
+    return <NotListing />;
+  }
   return (
     <div className=" max-w-7xl mx-auto space-y-4">
       <h1 className="text-2xl">My added room listing</h1>

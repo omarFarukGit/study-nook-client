@@ -15,6 +15,7 @@ import { FcGoogle } from "react-icons/fc";
 import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "react-toastify";
+import { FaGithub } from "react-icons/fa";
 
 const LoginPage = () => {
   const onSubmit = async (e) => {
@@ -33,6 +34,11 @@ const LoginPage = () => {
     if (error) {
       toast.error(error.message);
     }
+  };
+  const signIn = async () => {
+    const data = await authClient.signIn.social({
+      provider: "github",
+    });
   };
   return (
     <div className="max-w-7xl mx-auto">
@@ -99,11 +105,12 @@ const LoginPage = () => {
         </div>
         <div>
           <Button
-            onClick={""}
+            onClick={signIn}
             variant="outline"
             className={"w-full rounded-none"}
           >
-            <FcGoogle /> Sign in with Google
+            <FaGithub />
+            Sign in with GitHub
           </Button>
         </div>
         <div className=" flex justify-center items-center">

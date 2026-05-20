@@ -140,3 +140,19 @@ const RoomDetails = async ({ params }) => {
 };
 
 export default RoomDetails;
+
+export const generateMetadata = async ({ params }) => {
+  const { id } = await params;
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/study-nook/${id}`,
+    {
+      cache: "no-store",
+    },
+  );
+  const data = await res.json();
+  const room = data.data;
+  const { roomName } = room;
+  return {
+    title: roomName,
+  };
+};
