@@ -54,10 +54,13 @@ const RoomCard = ({ room }) => {
             <span> booking</span>
           </p>
         </div>
+        <p>Amenities</p>
         <div className=" flex gap-2">
-          <Chip color="accent">wifi</Chip>
-          <Chip color="accent">pawerlass</Chip>
-          <Chip color="accent">Quiet Zone</Chip>
+          {amenities.map((a, i) => (
+            <Chip key={i} color="accent">
+              {a}
+            </Chip>
+          ))}
         </div>
         <Link href={`/all-room/${_id}`}>
           <Button variant="ghost" className={"mt-1 text-cyan-500 w-full"}>

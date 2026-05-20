@@ -1,5 +1,7 @@
 import { BookingModal } from "@/components/heroUI/BookingModal";
 import { UpdateModel } from "@/components/heroUI/UpdateModel";
+import { auth } from "@/lib/auth";
+import { authClient } from "@/lib/auth-client";
 import { Button, Chip } from "@heroui/react";
 import {
   Building2,
@@ -9,11 +11,38 @@ import {
   User,
   UsersRound,
 } from "lucide-react";
+import { headers } from "next/headers";
 import Image from "next/image";
-import React from "react";
+import React, { use } from "react";
 import { FiExternalLink } from "react-icons/fi";
 
-const RoomDetails = () => {
+const RoomDetails = async ({ params }) => {
+  const { id } = await params;
+  console.log("details", id);
+  const res = await fetch(`http://localhost:3001/api/study-nook/${id}`);
+  const result = await res.json();
+  const room = result.data;
+  // console.log(room);
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+  const expectedUser = session?.user?.id;
+
+  const {
+    _id,
+    userId,
+    roomName,
+    description,
+    image,
+    floor,
+    capacity,
+    hourlyRate,
+    amenities,
+    ownerName,
+    ownerEmail,
+    bookingCount,
+  } = room;
+  console.log("see", expectedUser, userId);
   return (
     <div
       className=" grid grid-cols-4 max-w-7xl mx-auto py-10 gap-5 bg-[#f9f6f1
@@ -23,32 +52,24 @@ const RoomDetails = () => {
         <Image
           className=" w-full h-[60vh]"
           alt={""}
-          src={
-            "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1200&q=80"
-          }
+          src={image}
           height={400}
           width={400}
         />
 
         <div className="p-2 space-y-3">
           <div className="flex items-center justify-between gap-1">
-            <p>room name</p>
-            <p>3/hr</p>
+            <h2 className="text-xl font-bold">{roomName}</h2>
+            <p>{hourlyRate}/hr</p>
           </div>
           <div className="flex justify-between">
             <div>
-              <div>
-                <h2 className="text-xl font-bold">roomName</h2>
-              </div>
-              <div className="flex gap-1 items-center">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                Voluptas, libero!
-              </div>
+              <div className="flex gap-1 items-center">{description}</div>
             </div>
           </div>
           <div className=" flex gap-2">
             <p className="flex justify-center items-center gap-1">
-              <Building2 /> <span>floor</span>
+              <Building2 /> <span>{floor}</span>
             </p>
             <p className="flex justify-center items-center gap-1">
               <UsersRound />
@@ -61,9 +82,11 @@ const RoomDetails = () => {
           </div>
           <p>Amenities</p>
           <div className=" flex gap-2">
-            <Chip color="accent">wifi</Chip>
-            <Chip color="accent">pawerlass</Chip>
-            <Chip color="accent">Quiet Zone</Chip>
+            {amenities.map((a, i) => (
+              <Chip key={i} color="accent">
+                {a}
+              </Chip>
+            ))}
           </div>
         </div>
       </div>
@@ -71,7 +94,7 @@ const RoomDetails = () => {
         <div className="bg-white shadow-2xl  space-y-2.5 p-4 border">
           <div className=" flex flex-col justify-strat gap-2">
             <div className=" flex justify-between">
-              <p>5</p>
+              <p>{hourlyRate}</p>
               <p>hr</p>
             </div>
             <p className="flex  items-center gap-1">
@@ -88,12 +111,14 @@ const RoomDetails = () => {
           </div>
 
           <BookingModal />
-          <div className=" flex gap-2">
-            <Button variant="danger">
-              <FiExternalLink /> delete
-            </Button>
-            <UpdateModel />
-          </div>
+          {expectedUser === userId ? (
+            <div className=" flex gap-2">
+              <Button variant="danger">
+                <FiExternalLink /> delete
+              </Button>
+              <UpdateModel />
+            </div>
+          ) : null}
         </div>
         <div className="bg-white border shadow-2xl space-y-2.5 p-4">
           <h2 className=" text-base">Listed By</h2>

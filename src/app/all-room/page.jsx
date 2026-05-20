@@ -5,6 +5,7 @@ const AllRoomPage = async () => {
   const res = await fetch("http://localhost:3001/api/study-nook");
   const result = await res.json();
   const allroom = result.data;
+ 
 
   return (
     <div className=" max-w-7xl mx-auto">
