@@ -1,6 +1,7 @@
 "use client";
 
 import { RadioSection } from "@/components/heroUI/RadioButton";
+import { authClient } from "@/lib/auth-client";
 import {
   FieldError,
   Input,
@@ -17,23 +18,31 @@ import {
 import { Radio } from "lucide-react";
 
 const AddRoomPage = () => {
+  const { data: session } = authClient.useSession();
+  const ownerName = session?.user?.name;
+  const ownerEmail = session?.user?.email;
+  const userId = session?.user?.id;
+
+  console.log(session);
   const onSubmit = async (e) => {
     e.preventDefault();
-    // const formData = new FormData(e.currentTarget);
-    // const destination = Object.fromEntries(formData.entries());
+    const formData = new FormData(e.currentTarget);
+    const room = Object.fromEntries(formData.entries());
 
-    // console.log(destination);
+    const roomData = {
+      userId,
+      ownerName,
+      ownerEmail,
+      ...room,
+    };
 
-    // const res = await fetch(
-    //   `${process.env.NEXT_PUBLIC_SERVER_URL}/api/destination`,
-    //   {
-    //     method: "POST",
-    //     headers: {
-    //       "content-type": "application/json",
-    //     },
-    //     body: JSON.stringify(destination),
-    //   },
-    // );
+    const res = await fetch(`http://localhost:3001/api/study-nook`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(roomData),
+    });
 
     const data = await res.json();
   };
@@ -69,7 +78,7 @@ const AddRoomPage = () => {
             </div>
             {/* Image URL - Removed preview */}
             <div className="md:col-span-2">
-              <TextField name="imageUrl" isRequired>
+              <TextField name="image" isRequired>
                 <Label>Image URL</Label>
                 <Input
                   type="url"
@@ -81,12 +90,12 @@ const AddRoomPage = () => {
             </div>
 
             {/* Price */}
-            <TextField name="price" type="number" isRequired>
+            <TextField name="floor" type="number" isRequired>
               <Label>Floor </Label>
               <Input type="number" placeholder="1299" className="rounded-2xl" />
               <FieldError />
             </TextField>
-            <TextField name="price" type="number" isRequired>
+            <TextField name="cpacity" type="number" isRequired>
               <Label>Cpacity </Label>
               <Input
                 type="number"
@@ -95,7 +104,7 @@ const AddRoomPage = () => {
               />
               <FieldError />
             </TextField>
-            <TextField name="price" type="number" isRequired>
+            <TextField name="hourlyRate" type="number" isRequired>
               <Label>Hourly Rate </Label>
               <Input type="number" placeholder="1299" className="rounded-2xl" />
               <FieldError />

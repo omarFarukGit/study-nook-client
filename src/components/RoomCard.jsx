@@ -5,45 +5,49 @@ import { LuMapPin } from "react-icons/lu";
 import { FaRegCalendar } from "react-icons/fa6";
 import Link from "next/link";
 import { Building2, ListOrdered, UsersRound } from "lucide-react";
-const RoomCard = ({ destination }) => {
-  //   const { _id, imageUrl, price, destinationName, duration, country } =
-  //     destination;
+const RoomCard = ({ room }) => {
+  const {
+    _id,
+    userId,
+    roomName,
+    description,
+    image,
+    floor,
+    capacity,
+    hourlyRate,
+    amenities,
+    ownerName,
+    ownerEmail,
+    bookingCount,
+  } = room;
 
   return (
-    <div className="border w-65">
+    <div className="border ">
       <Image
-        className=""
+        className=" w-full h-[250px]"
         alt={""}
-        src={
-          "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1200&q=80"
-        }
+        src={image}
         height={400}
         width={400}
       />
 
       <div className="p-2 space-y-3">
         <div className="flex items-center justify-between gap-1">
-          <p>room name</p>
-          <p>3/hr</p>
+          <p className=" text-2xl font-bold">{roomName}</p>
+          <p>{hourlyRate}</p>
         </div>
         <div className="flex justify-between">
           <div>
-            <div>
-              <h2 className="text-xl font-bold">roomName</h2>
-            </div>
-            <div className="flex gap-1 items-center">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              Voluptas, libero!
-            </div>
+            <div className="flex gap-1 items-center">{description}</div>
           </div>
         </div>
         <div className=" flex gap-2">
           <p className="flex justify-center items-center gap-1">
-            <Building2 /> <span>floor</span>
+            <Building2 /> <span>{floor}</span>
           </p>
           <p className="flex justify-center items-center gap-1">
             <UsersRound />
-            <span>pepole</span>
+            <span>{capacity}</span>
           </p>
           <p className="flex justify-center items-center gap-1">
             <ListOrdered />
@@ -55,7 +59,7 @@ const RoomCard = ({ destination }) => {
           <Chip color="accent">pawerlass</Chip>
           <Chip color="accent">Quiet Zone</Chip>
         </div>
-        <Link href={`/all-room/${""}`}>
+        <Link href={`/all-room/${_id}`}>
           <Button variant="ghost" className={"mt-1 text-cyan-500 w-full"}>
             {" "}
             <FiExternalLink /> veiw details
