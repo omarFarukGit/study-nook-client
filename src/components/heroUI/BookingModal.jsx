@@ -44,7 +44,6 @@ export function BookingModal({ room }) {
       cost: totalCost,
     };
 
-    
     console.log(BookData);
 
     const res = await fetch(
@@ -60,6 +59,11 @@ export function BookingModal({ room }) {
 
     const data = await res.json();
     console.log(data);
+    if (!session?.user) {
+      toast.success("plese loging");
+      redirect("/login");
+      return;
+    }
     if (data.success) {
       toast.success("Booking sucesssfully");
       redirect("/my-booking");
