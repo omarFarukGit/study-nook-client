@@ -114,7 +114,7 @@ const RoomDetails = async ({ params }) => {
             </p>
           </div>
 
-          <BookingModal />
+          <BookingModal room={room} />
           {expectedUser === userId ? (
             <div className=" flex gap-2">
               <DeleteModal id={_id} userId={userId} />
