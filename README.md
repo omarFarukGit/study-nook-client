@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 📚 Study Nook
 
-## Getting Started
+A modern room booking & study space management platform built with **Next.js (frontend)** and **Express + MongoDB (backend)**. Users can browse study rooms, book time slots, and manage their bookings in real-time with authentication support.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🚀 Features
+
+- 🔐 Authentication using Better Auth
+- 🏠 Browse available study rooms
+- 📅 Book rooms with date & time validation
+- ❌ Prevent double booking for same time slot
+- 📦 Manage user bookings (view / cancel)
+- ⚡ Real-time UI updates with toast notifications
+- 🎨 Modern UI using HeroUI components
+- 🌐 REST API backend with Express
+- 🗄 MongoDB database with Mongoose
+
+---
+
+## 🛠 Tech Stack
+
+### Frontend (Client)
+- Next.js 16
+- React 19
+- HeroUI (`@heroui/react`, `@heroui/styles`)
+- React Toastify
+- Lucide React Icons
+- React Icons
+
+### Backend (Server)
+- Node.js + Express
+- MongoDB + Mongoose
+- Better Auth
+- CORS
+- Dotenv
+
+---
+## 🧠 Core Business Logic
+
+### ❌ Booking Conflict Rule
+
+A room cannot be booked if:
+
+- Same room
+- Same date
+- Same time slot
+
+Backend response:
+
+```json id="conflict-response"
+{
+  "success": false,
+  "message": "This room is already booked at this time"
+}
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📦 Installation
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### 1. Clone the project
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+git clone https://github.com/your-username/study-nook.git
+cd study-nook
