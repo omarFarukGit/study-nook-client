@@ -1,6 +1,6 @@
 "use client";
 import RoomCard from "@/components/RoomCard";
-import { Button } from "@heroui/react";
+import { Button, Spinner } from "@heroui/react";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
@@ -89,21 +89,8 @@ const AllRoomPage = () => {
             ))}
           </div>
         ) : (
-          <div className="bg-white border border-dashed border-slate-300 rounded-3xl py-20 px-6 text-center">
-            <h2 className="text-2xl font-semibold text-slate-800">
-              No Rooms Found
-            </h2>
-
-            <p className="text-slate-500 mt-3 max-w-md mx-auto">
-              There are currently no study rooms available. Please check again
-              later or create a new room.
-            </p>
-
-            <Link href="/create-room">
-              <Button radius="full" className="mt-6 bg-black text-white px-6">
-                Create Room
-              </Button>
-            </Link>
+          <div className="flex items-center justify-center py-32">
+            <Spinner size="lg" color="primary" />
           </div>
         )}
       </div>

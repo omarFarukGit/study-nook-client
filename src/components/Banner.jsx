@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 // import BannerItem from "./BannerItem";
 
 const Banner = () => {
@@ -19,12 +20,12 @@ const Banner = () => {
           </p>
 
           <div className="mt-6 flex flex-col sm:flex-row items-center justify-center md:justify-start gap-3 sm:gap-4">
-            <a
-              href="#subscribtion-section"
+            <Link
+              href="/all-room"
               className="w-full sm:w-auto text-center rounded bg-indigo-600 px-6 py-3 font-medium text-white transition hover:bg-indigo-700"
             >
-              Get Started
-            </a>
+              Explore
+            </Link>
 
             <a
               href="#"
@@ -36,16 +37,16 @@ const Banner = () => {
         </div>
 
         {/* Banner Image */}
-        {/* <div className="relative mt-10 w-full h-64  md:h-[400px]">
+        <div className="relative mt-10 w-full h-64  md:h-[400px]">
           <Image
-            src="/library-banner.jpg"
+            src="https://images.unsplash.com/photo-1568667256549-094345857637?w=1200&q=80"
             alt="Library Banner"
             fill
             className="rounded-2xl object-cover"
             priority
             sizes="(max-width: 768px) 100vw, 50vw"
           />
-        </div> */}
+        </div>
         {/* <BannerItem/> */}
       </div>
     </section>
