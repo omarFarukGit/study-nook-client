@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { Calendar, Clock } from "lucide-react";
+import { authClient } from "@/lib/auth-client";
 
 const BookingCard = ({ booking, userId }) => {
   const [localStatus, setLocalStatus] = useState(booking.status);
