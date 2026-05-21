@@ -89,7 +89,12 @@ export function BookingModal({ room }) {
               <Surface>
                 <form onSubmit={onSubmit} className="flex flex-col gap-4">
                   {/* DATE */}
-                  <TextField name="date" type="date">
+                  <TextField
+                    isRequired
+                    name="date"
+                    type="date"
+                    defaultValue={new Date().toISOString().split("T")[0]}
+                  >
                     <Label>Date</Label>
                     <Input />
                   </TextField>
@@ -129,7 +134,7 @@ export function BookingModal({ room }) {
 
                   {/* MESSAGE */}
                   <TextField name="message">
-                    <Label>Special note</Label>
+                    <Label>Special note (optional)</Label>
                     <Input />
                   </TextField>
 
