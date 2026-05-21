@@ -1,15 +1,36 @@
+"use client";
 import RoomCard from "@/components/RoomCard";
 import { Button } from "@heroui/react";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-const AllRoomPage = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/study-nook`, {
-    cache: "no-store",
-  });
+const AllRoomPage = () => {
+  const [search, setSearch] = useState("");
+  const [allroom, setRooms] = useState([]);
 
-  const result = await res.json();
-  const allroom = result.data;
+  // ✅ page load e all rooms load
+
+  const fetchRooms = async (value) => {
+    const url = value
+      ? `${process.env.NEXT_PUBLIC_API_URL}/api/study-nook?search=${value}`
+      : `${process.env.NEXT_PUBLIC_API_URL}/api/study-nook`;
+
+    const res = await fetch(url);
+    const data = await res.json();
+
+    setRooms(data.data);
+  };
+  useEffect(() => {
+    const loadRooms = async () => {
+      await fetchRooms("");
+    };
+
+    loadRooms();
+  }, []);
+
+  function handleSearch() {
+    fetchRooms(search);
+  }
 
   return (
     <section className="min-h-screen bg-gradient-to-b from-slate-50 to-white py-10 md:py-16">
@@ -39,6 +60,20 @@ const AllRoomPage = async () => {
               Back To Home
             </Button>
           </Link>
+        </div>
+
+        {/* 🔍 Search */}
+        <div className="flex gap-2 mb-6">
+          <input
+            className="border p-2 rounded w-full"
+            placeholder="Search rooms..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+
+          <Button onClick={handleSearch} className="bg-blue-600 text-white">
+            Search
+          </Button>
         </div>
 
         {/* Rooms */}

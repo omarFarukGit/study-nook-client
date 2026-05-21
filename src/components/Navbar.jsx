@@ -143,7 +143,7 @@ const Navbar = () => {
                     href="/my-booking"
                     className="px-4 py-2 text-sm hover:bg-muted flex items-center gap-3 transition-colors text-black hover:text-white"
                   >
-                    <User className="w-4 h-4" /> my Lists
+                    <User className="w-4 h-4" /> my Booking
                   </Link>
                   <button
                     onClick={handleSignOut}
