@@ -9,12 +9,18 @@ const MyBooking = async () => {
     headers: await headers(),
   });
 
+  const { token } = await auth.api.getToken({
+    headers: await headers(),
+  });
   const userId = session?.user?.id;
 
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/api/study-nook/bookings/${userId}`,
     {
       cache: "no-store",
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
     },
   );
 

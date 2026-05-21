@@ -12,11 +12,15 @@ const BookingCard = ({ booking, userId }) => {
   const router = useRouter();
 
   const handleCancel = async () => {
+    const { data: tokenData } = await authClient.token();
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/api/study-nook/booking/room/${userId}/booking/${booking._id}`,
       {
         method: "PATCH",
-        headers: { "content-type": "application/json" },
+        headers: {
+          "content-type": "application/json",
+          authorization: `Bearer ${tokenData.token}`,
+        },
         body: JSON.stringify({ status: "cancelled" }),
       },
     );

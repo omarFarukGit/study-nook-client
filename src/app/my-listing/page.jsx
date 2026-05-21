@@ -5,9 +5,13 @@ import { headers } from "next/headers";
 import React from "react";
 
 const MyListing = async () => {
+  const { token } = await auth.api.getToken({
+    headers: await headers(),
+  });
   const session = await auth.api.getSession({
     headers: await headers(),
   });
+  console.log(token);
 
   const userId = session?.user?.id;
 
@@ -15,6 +19,9 @@ const MyListing = async () => {
     `${process.env.NEXT_PUBLIC_API_URL}/api/study-nook/user-room/${userId}`,
     {
       cache: "no-store",
+      headers:{
+        authorization:`Bearer ${token}`
+      }
     },
   );
 
