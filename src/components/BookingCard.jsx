@@ -1,19 +1,20 @@
 "use client";
-import { Button, Chip } from "@heroui/react";
 
+import { Button, Chip } from "@heroui/react";
 import Image from "next/image";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { Calendar, Clock } from "lucide-react";
 
 const BookingCard = ({ booking, userId }) => {
   const [localStatus, setLocalStatus] = useState(booking.status);
+  const router = useRouter();
 
   const handleCancel = async () => {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/api/study-nook/booking/room/${userId}/booking/${booking._id}`,
       {
-        next: { revalidate: 0 },
         method: "PATCH",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ status: "cancelled" }),
@@ -24,28 +25,53 @@ const BookingCard = ({ booking, userId }) => {
 
     if (data.success) {
       setLocalStatus("cancelled");
-      toast.success("your booking cancelled");
-      redirect("/my-booking");
+      toast.success("Your booking cancelled");
+      router.refresh(); // better than redirect for UI update
     }
   };
 
   return (
-    <div className="flex gap-4 p-4 bg-white border rounded-xl">
-      <Image src={booking.image} alt="course" width={120} height={90} />
+    <div className="flex flex-col sm:flex-row gap-4 p-4 bg-white border rounded-xl shadow-sm hover:shadow-md transition">
+      {/* Image */}
+      <Image
+        src={booking.image}
+        alt="room"
+        width={140}
+        height={110}
+        className="rounded-lg object-cover w-full sm:w-[140px] h-[110px]"
+      />
 
-      <div className="flex flex-col grow justify-between">
-        <h3 className="font-bold">{booking.roomName}</h3>
+      {/* Content */}
+      <div className="flex flex-col justify-between flex-1 space-y-3">
+        {/* Title */}
+        <h3 className="font-bold text-lg">{booking.roomName}</h3>
 
-        <div className="flex justify-between items-center">
+        {/* Date + Time */}
+        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-sm text-gray-600">
+          <div className="flex items-center gap-1">
+            <Calendar className="w-4 h-4 text-blue-500" />
+            <span>{new Date(booking.date).toLocaleDateString("en-GB")}</span>
+          </div>
+
+          <div className="flex items-center gap-1">
+            <Clock className="w-4 h-4 text-orange-500" />
+            <span>
+              {booking.startTime} Am - {booking.endTime} Pm
+            </span>
+          </div>
+        </div>
+
+        {/* Status + Button */}
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
           <Chip color={localStatus === "cancelled" ? "danger" : "success"}>
             {localStatus}
           </Chip>
 
-          {booking.status === "pending" ? (
+          {localStatus === "pending" && (
             <Button color="danger" onClick={handleCancel}>
               Cancel
             </Button>
-          ) : null}
+          )}
         </div>
       </div>
     </div>
