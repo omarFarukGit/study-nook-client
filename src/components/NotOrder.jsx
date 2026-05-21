@@ -12,10 +12,10 @@ const OrderNotFound = () => {
           </div>
         </div>
 
-        <h1 className="text-3xl font-bold">Order Not Found</h1>
+        <h1 className="text-3xl font-bold">Booking Not Found</h1>
 
         <p className="text-gray-500">
-          We couldn&apos;t find any orders associated with your account.
+          We couldn&apos;t find any Bokings associated with your account.
         </p>
 
         <div className="pt-2">

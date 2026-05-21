@@ -74,13 +74,11 @@ cd study-nook
 ## Frontend Deploy
 
 * Vercel
-* Netlify
+
 
 ## Backend Deploy
 
-* Render
-* Railway
-* Cyclic
+* Vercel
 
 ## Database
 
