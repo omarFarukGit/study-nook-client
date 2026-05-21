@@ -17,6 +17,11 @@ A modern room booking & study space management platform built with **Next.js (fr
 - 🗄 MongoDB database with Mongoose
 
 ---
+## 🌐 Live Demo
+
+👉 https://study-nook-client-cyan.vercel.app/
+
+---
 
 ## 🛠 Tech Stack
 
@@ -62,3 +67,40 @@ Backend response:
 ```bash
 git clone https://github.com/your-username/study-nook.git
 cd study-nook
+```
+
+# 🌐 Deployment
+
+## Frontend Deploy
+
+* Vercel
+* Netlify
+
+## Backend Deploy
+
+* Render
+* Railway
+* Cyclic
+
+## Database
+
+* MongoDB Atlas
+
+---
+
+
+# 🤝 Contributing
+
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+---
+
+# 📄 License
+
+This project is licensed under the MIT License.
+
+---
+
+# 👨‍💻 Developer
+
+Developed by Md Omar Faruk
