@@ -31,7 +31,7 @@ const AvailableRoom = async () => {
             </p>
           </div>
 
-          <Link href="/rooms">
+          <Link href="/all-room">
             <Button
               radius="full"
               className="bg-black text-white px-6 w-full sm:w-auto"
@@ -64,7 +64,7 @@ const AvailableRoom = async () => {
               later.
             </p>
 
-            <Link href="/create-room">
+            <Link href="/add-room">
               <Button radius="full" className="mt-6 bg-black text-white px-6">
                 Add New Room
               </Button>
