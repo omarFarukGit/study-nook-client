@@ -38,21 +38,21 @@ const Footer = () => {
           <nav className="flex gap-5 ">
             <a
               aria-label="social link facebook"
-              href="https://web.facebook.com/mdmohiburrahmanmanik0/"
+              href="#"
               className="hover:scale-110 duration-75 delay-75 link text-4xl link-hover hover:text-blue-400"
             >
               <FaFacebookF className="text-[#1877F2]"></FaFacebookF>
             </a>
             <a
               aria-label="social link twitter"
-              href="https://x.com/MohiburMd2288"
+              href="#"
               className="hover:scale-110 duration-75 delay-75 link text-4xl link-hover hover:text-blue-400"
             >
               <RiTwitterXLine className="text-[#1DA1F2]"></RiTwitterXLine>
             </a>
             <a
               aria-label="social link linkedin"
-              href="https://www.linkedin.com/in/md-mohebur-rahman-monir/"
+              href="#"
               className="hover:scale-110 duration-75 delay-75 link text-4xl link-hover hover:text-blue-400"
             >
               <FaLinkedin className="text-[#0a66c2]"></FaLinkedin>
