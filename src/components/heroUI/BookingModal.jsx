@@ -64,6 +64,9 @@ export function BookingModal({ room }) {
       redirect("/login");
       return;
     }
+    if (!data.success) {
+      toast.error(data.message);
+    }
     if (data.success) {
       toast.success("Booking sucesssfully");
       redirect("/my-booking");
